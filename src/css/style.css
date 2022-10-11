@@ -13,6 +13,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .main__color {
@@ -42,6 +43,10 @@ body {
   padding: 0.5em;
 }
 
+.card-group:active {
+  cursor: 'grabbing';
+}
+
 .title-group {
   display: flex;
   align-items: center;
@@ -54,17 +59,20 @@ body {
 }
 .task,
 .pre-task {
-	display: flex;
-  flex-direction: column;
-
   list-style-type: none;
 
   background-color: #ffffff;
   border: solid 0.5px white;
   border-radius: 7px;
+
   padding: 10px;
+
   color: #334e5d;
-	margin-bottom: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 10px;
 }
 .task-title {
   word-break: break-all;
@@ -147,4 +155,10 @@ button:hover {
 .material-symbols-outlined {
   display: block;
   cursor: pointer;
+}
+
+.dragged {
+  position: absolute;
+  z-index: 999;
+  pointer-events: none;
 }
