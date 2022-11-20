@@ -12,124 +12,43 @@
     <title>Document</title>
   </head>
 	<body>
-    <div class="container">
-      <article class="card-group">
-        <div class="title-group main__color">
-          <h3 class="title">TODO</h3>
-          <span class="material-symbols-outlined"> menu_open </span>
+    <h1 class="header">Welcome to Trello!</h1>
+
+    <div id="board">
+
+      <div id="todo" class="list">
+        <p class="list__title">TODO</p>
+        <div class="list__task-list"></div>
+        <div class="list__add-card button">+ Add new card</div>
+        <div class="list__input hidden">
+          <textarea name="task-description" id="task-description"></textarea>
+          <span class="list__input__add button">Add card</span>
+          <span class="list__input__cancel button">Cancel</span>
         </div>
-        <div class="cards drop-area">
-          <ul class="task-group main__color">
-            <li class="pre-task">
-              <div class="task-description">
-                <span class="task-title">...your tasks</span>
-              </div>
-              <span class="material-symbols-outlined task-menu">
-                density_medium
-              </span>
-            </li>
-          </ul>
+      </div>
+
+      <div id="inProgress" class="list">
+        <p class="list__title">IN PROGRESS</p>
+        <div class="list__task-list"></div>
+        <div class="list__add-card button">+ Add new card</div>
+        <div class="list__input hidden">
+          <textarea name="task-description" id="task-description"></textarea>
+          <span class="list__input__add button">Add card</span>
+          <span class="list__input__cancel">Cancel</span>
         </div>
-        <div class="adding__cards additional__color">
-          <span class="material-symbols-outlined"> add_box </span>
-          <span class="">Add another card</span>
+      </div>
+
+      <div id="done" class="list">
+        <p class="list__title">DONE</p>
+        <div class="list__task-list"></div>
+        <div class="list__add-card  button">+ Add new card</div>
+        <div class="list__input hidden">
+          <textarea name="task-description" id="task-description"></textarea>
+          <span class="list__input__add button">Add card</span>
+          <span class="list__input__cancel button">Cancel</span>
         </div>
-        <form id="form" class="hidden">
-          <div class="form-group">
-            <textarea
-              class="form-control additional__color"
-              placeholder="Enter a title for this card..."
-              required
-            ></textarea>
-            <div class="form-group__buttons">
-              <button type="submit" class="add__task">Add card</button>
-              <span
-                class="close-button material-symbols-outlined additional__color"
-              >
-                close
-              </span>
-            </div>
-          </div>
-        </form>
-      </article>
-      <article class="card-group">
-        <div class="title-group main__color">
-          <h3 class="title">TODO</h3>
-          <span class="material-symbols-outlined"> menu_open </span>
-        </div>
-        <div class="cards drop-area">
-          <ul class="task-group main__color">
-            <li class="pre-task">
-              <div class="task-description">
-                <span class="task-title">...your tasks</span>
-              </div>
-              <span class="material-symbols-outlined task-menu">
-                density_medium
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div class="adding__cards additional__color">
-          <span class="material-symbols-outlined"> add_box </span>
-          <span class="">Add another card</span>
-        </div>
-        <form id="form" class="hidden">
-          <div class="form-group">
-            <textarea
-              class="form-control additional__color"
-              placeholder="Enter a title for this card..."
-              required
-            ></textarea>
-            <div class="form-group__buttons">
-              <button type="submit" class="add__task">Add card</button>
-              <span
-                class="close-button material-symbols-outlined additional__color"
-              >
-                close
-              </span>
-            </div>
-          </div>
-        </form>
-      </article>
-      <article class="card-group">
-        <div class="title-group main__color">
-          <h3 class="title">TODO</h3>
-          <span class="material-symbols-outlined"> menu_open </span>
-        </div>
-        <div class="cards drop-area">
-          <ul class="task-group main__color">
-            <li class="pre-task">
-              <div class="task-description">
-                <span class="task-title">...your tasks</span>
-              </div>
-              <span class="material-symbols-outlined task-menu">
-                density_medium
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div class="adding__cards additional__color">
-          <span class="material-symbols-outlined"> add_box </span>
-          <span class="">Add another card</span>
-        </div>
-        <form id="form" class="hidden">
-          <div class="form-group">
-            <textarea
-              class="form-control additional__color"
-              placeholder="Enter a title for this card..."
-              required
-            ></textarea>
-            <div class="form-group__buttons">
-              <button type="submit" class="add__task">Add card</button>
-              <span
-                class="close-button material-symbols-outlined additional__color"
-              >
-                close
-              </span>
-            </div>
-          </div>
-        </form>
-      </article>
+      </div>
+
     </div>
   </body>
 </html>

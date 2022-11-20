@@ -1,108 +1,117 @@
-const textareaElements = document.querySelectorAll('.form-control');
+import addNewTask from './addNewTask';
+import saveTask from './saveTask';
+import loadTasks from './loadTasks';
+import moveElement from './moveElement';
 
-textareaElements.forEach((elem) =>
-  elem.addEventListener('keyup', (event) => {
-    elem.style.height = 'auto';
-    let scHeight = event.target.scrollHeight;
-    elem.style.height = `${scHeight}px`;
-  })
-);
+const board = document.querySelector('#board');
 
-const highlightCard = function () {
-  this.classList.toggle('highlight');
-  const parentEl = this.parentElement;
-  const closeBtn = this.querySelector('.delete-button');
-  closeBtn.classList.toggle('hidden');
-  closeBtn.addEventListener('click', () => {
-    this.remove();
-    const taskList = parentEl.querySelectorAll('.task');
-    if (taskList.length < 1) {
-      const previoslyTask = parentEl.querySelector('.pre-task');
-      previoslyTask.classList.remove('hidden');
-    }
-  });
-};
+let draggedElement = null;
+let cloneElement = null;
+let elementWidth;
+let elementHeight;
+let elementTop;
+let elementLeft;
 
-const dragDrop = function () {
-  const draggedEl = this;
-  const ghostEl = this.cloneNode(true);
+document.addEventListener('DOMContentLoaded', () => {
+  const storageData = JSON.parse(localStorage.getItem('tasksList'));
+  if (storageData !== null) {
+    loadTasks(storageData);
+  }
+});
 
-  this.addEventListener('mousedown', () => {
-    ghostEl.classList.add('dragged');
-    document.body.append(ghostEl);
-  });
+board.addEventListener('mousedown', (event) => {
+  const targetElement = event.target;
 
-  this.addEventListener('mousemove', (event) => {
+  if (targetElement.classList.contains('task-list__item')) {
     event.preventDefault();
-    if (!draggedEl) return;
-    ghostEl.style.left = event.pageX - ghostEl.offsetWidth / 2 + 'px';
-    ghostEl.style.top = event.pageY - ghostEl.offsetHeight / 2 + 'px';
-  });
+    targetElement.querySelector('.delete-task').classList.add('hidden');
+    const { top, left } = targetElement.getBoundingClientRect();
+    draggedElement = targetElement;
+    elementWidth = draggedElement.offsetWidth;
+    elementHeight = draggedElement.offsetHeight;
+    elementLeft = event.pageX - left;
+    elementTop = event.pageY - top;
 
-  this.addEventListener('mouseup', (event) => {
-    if (!draggedEl) return;
-    let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-  });
-};
+    cloneElement = targetElement.cloneNode(true);
+    cloneElement.innerHTML = '';
+    cloneElement.style.backgroundColor = '#D5DBDE';
+    cloneElement.style.border = 'none';
+    cloneElement.style.width = `${elementWidth}px`;
+    cloneElement.style.height = `${elementHeight}px`;
 
-const addCard = function (event) {
-  const targetParent = this.closest('.card-group');
-  const targetForm = targetParent.querySelector('form');
+    draggedElement.classList.add('dragged');
+    targetElement.parentNode.insertBefore(cloneElement, targetElement.nextElementSibling);
 
-  const targetTextarea = targetForm.querySelector('.form-control');
-
-  event.preventDefault();
-  if (targetTextarea.value.length !== 0) {
-    const taskGroup = targetParent.querySelector('.task-group');
-    const newTask = document.createElement('li');
-    newTask.classList.add('task');
-    newTask.innerHTML = `<div class="task-description">
-        <span class="task-title">${targetTextarea.value}</span>
-        <span class="material-symbols-outlined delete-button hidden">
-          disabled_by_default
-        </span>
-      </div>
-      <span class="material-symbols-outlined task-menu">
-      density_medium
-    </span>`;
-
-    taskGroup.appendChild(newTask);
-
-    targetForm.classList.add('hidden');
-    targetParent.querySelector('.adding__cards').classList.remove('hidden');
-    newTask.addEventListener('click', highlightCard);
-    newTask.addEventListener('mousedown', dragDrop);
+    draggedElement.style.left = `${event.pageX - elementLeft}px`;
+    draggedElement.style.top = `${event.pageY - elementTop}px`;
+    draggedElement.style.width = `${elementWidth}px`;
+    draggedElement.style.height = `${elementHeight}px`;
+  } else if (targetElement.classList.contains('list__add-card')) {
+    targetElement.parentNode.querySelector('.list__input').classList.remove('hidden');
+    targetElement.classList.add('hidden');
+  } else if (targetElement.classList.contains('list__input__add')) {
+    const parentList = targetElement
+      .closest('.list')
+      .querySelector('.list__task-list');
+    const input = targetElement.closest('.list__input').querySelector('#task-description');
+    const description = input.value;
+    addNewTask(parentList, description);
+    input.value = '';
+    targetElement
+      .closest('.list')
+      .querySelector('.list__add-card')
+      .classList.remove('hidden');
+    targetElement.parentNode.classList.add('hidden');
+    saveTask();
+  } else if (targetElement.classList.contains('delete-task')) {
+    const taskToDelete = targetElement.parentNode;
+    taskToDelete.parentNode.removeChild(taskToDelete);
+    saveTask();
+  } else if (targetElement.classList.contains('list__input__cancel')) {
+    targetElement
+      .closest('.list')
+      .querySelector('.list__add-card')
+      .classList.remove('hidden');
+    targetElement.parentNode.classList.add('hidden');
+  } else if (targetElement.classList.contains('list__input__cancel')) {
+    targetElement
+      .closest('.list')
+      .querySelector('.list__add-card')
+      .classList.remove('hidden');
+    targetElement.parentNode.classList.add('hidden');
   }
-  const taskList = targetParent.querySelectorAll('.task');
-  const previoslyTask = targetParent.querySelector('.pre-task');
+});
 
-  if (taskList.length > 0) {
-    previoslyTask.classList.add('hidden');
+board.addEventListener('mouseleave', (event) => {
+  if (draggedElement) {
+    event.preventDefault();
+    cloneElement.parentNode.removeChild(cloneElement);
+    draggedElement.classList.remove('dragged');
+    draggedElement.style = '';
+    cloneElement = null;
+    draggedElement = null;
   }
+});
 
-  targetTextarea.value = '';
-};
+board.addEventListener('mousemove', (event) => {
+  if (draggedElement) {
+    event.preventDefault();
+    moveElement(event, cloneElement);
+    draggedElement.style.left = `${event.pageX - elementLeft}px`;
+    draggedElement.style.top = `${event.pageY - elementTop}px`;
+  }
+});
 
-const adding__cards = document.querySelectorAll('.adding__cards');
+board.addEventListener('mouseup', (event) => {
+  if (draggedElement) {
+    moveElement(event, draggedElement);
 
-adding__cards.forEach((elem) => {
-  elem.addEventListener('click', () => {
-    const targetParent = elem.parentElement;
-    const targetForm = targetParent.querySelector('form');
+    cloneElement.parentNode.removeChild(cloneElement);
+    draggedElement.classList.remove('dragged');
+    draggedElement.style = '';
+    cloneElement = null;
+    draggedElement = null;
 
-    if (targetForm.classList.contains('hidden')) {
-      targetForm.classList.remove('hidden');
-      elem.classList.add('hidden');
-    }
-
-    const targetButtonAdd = targetForm.querySelector('.add__task');
-    const targetCloseButton = targetForm.querySelector('.close-button');
-
-    targetButtonAdd.addEventListener('click', addCard);
-
-    targetCloseButton.addEventListener('click', () => {
-      targetForm.classList.add('hidden');
-      elem.classList.remove('hidden');
-    });
-  });
+    saveTask();
+  }
 });

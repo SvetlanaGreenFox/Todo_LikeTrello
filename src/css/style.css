@@ -1,164 +1,136 @@
-html,
-body {
-  min-height: 100vh;
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  color: #1e3c4d;
 }
 
 body {
   background-color: #107abb;
-  padding-top: 30px;
 }
 
-.container {
-  width: 100%;
+.header {
+  text-align: center;
+  color: #ffffff;
+  margin-top: 50px;
+}
+
+#board {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+  margin-top: 20px;
+  justify-content: center;
 }
 
-.main__color {
-  color: #334e5d;
-}
-.additional__color {
-  color: #7f919b;
-}
-
-@media screen and (min-width: 100px) and (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .card-group {
-    margin-bottom: 15px;
-  }
-}
-
-.card-group {
+.list {
   width: 30%;
-  background-color: azure;
-  border-radius: 7px;
+  padding: 10px;
+  background-color: #dee2e5;
 
-  padding: 0.5em;
+  border: 0.5px solid #dee2e5;
+  border-radius: 3px;
 }
 
-.card-group:active {
-  cursor: 'grabbing';
+.list:nth-child(n + 1) {
+  margin-left: 3%;
 }
 
-.title-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.list__title {
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
-.task-group {
-  padding-left: 0;
-  display: block;
+.list__task-list {
+  min-height: 15px;
 }
-.task,
-.pre-task {
-  list-style-type: none;
 
+.item-task {
+  position: relative;
+  width: 100%;
   background-color: #ffffff;
-  border: solid 0.5px white;
-  border-radius: 7px;
 
   padding: 10px;
+  padding-right: 30px;
+  margin-bottom: 15px;
 
-  color: #334e5d;
+  border: 0.5px solid gray;
+  border-radius: 3px;
 
-  display: flex;
-  flex-direction: column;
-
-  margin-bottom: 10px;
-}
-.task-title {
-  word-break: break-all;
-
-  float: right;
-  margin-bottom: 10px;
-}
-.task-menu {
-  font-size: 20px;
-}
-.task-description {
-  display: flex;
-  justify-content: space-between;
-  overflow: hidden;
-}
-.delete-button {
-  margin-right: 0 !important;
+  cursor: grabbing;
 }
 
-.adding__cards,
-.form-group__buttons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.adding__cards:hover {
-  cursor: pointer;
-}
-.material-symbols-outlined {
-  margin-right: 5px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-.form-control {
-  margin-bottom: 10px;
-  border: solid 0.5px #ffffff;
-  border-radius: 7px;
-
-  padding: 10px;
-}
-.form-control:focus {
-  border: solid 0.5px #7f919b;
-}
-
-.hidden {
-  visibility: hidden;
-  display: none;
-}
-.highlight {
-  background-color: #f5f6f7;
-}
-
-textarea {
-  outline: none;
-  -moz-appearance: none;
-  border: 1px solid #999;
-  resize: none;
-}
-textarea::-webkit-scrollbar {
-  width: 0px;
-}
-.add__task {
-  background-color: #449d44;
-  color: white;
-
-  border: solid 1px #398439;
-  border-radius: 4px;
-
-  padding: 6px 12px;
-  margin-right: 13px;
-}
-
-button:hover {
-  text-decoration: none;
-  cursor: pointer;
-}
-.material-symbols-outlined {
+.item-task:hover > .delete-task {
   display: block;
+}
+
+.item-task:last-child {
+  margin-bottom: 0;
+}
+
+.delete-task {
+  width: 15px;
+  height: 15px;
+  top: 5px;
+  right: 5px;
+  position: absolute;
+  text-align: center;
   cursor: pointer;
+  /* background-image: url('../img/delete.png'); */
+  /* background-position: center; */
+}
+
+.delete-task:hover {
+  font-weight: bold;
 }
 
 .dragged {
   position: absolute;
   z-index: 999;
   pointer-events: none;
+  background-color: #ffffff;
+  cursor: grabbing;
+}
+
+#task-description {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.list__add-card,
+.list__input {
+  margin-top: 10px;
+  padding: 5px 0;
+}
+
+.list__add-card:hover {
+  font-weight: bold;
+}
+
+.list__input__add {
+  color: white;
+  background-color: #5ca84d;
+  cursor: pointer;
+  padding: 7px;
+}
+
+.list__input__add:hover {
+  font-weight: bold;
+}
+
+.list__input__cancel {
+  float: right;
+  cursor: pointer;
+}
+
+.list__input__cancel:hover {
+  font-weight: bold;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
