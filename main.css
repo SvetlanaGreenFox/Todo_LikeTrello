@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  color: #1e3c4d;
+}
+
+body {
+  background-color: #107abb;
+}
+
+.header {
+  text-align: center;
+  color: #ffffff;
+  margin-top: 50px;
+}
+
+#board {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+	align-items: baseline;
+}
+
+.list {
+  width: 30%;
+  padding: 10px;
+  background-color: #dee2e5;
+
+  border: 0.5px solid #dee2e5;
+  border-radius: 3px;
+}
+
+.list:nth-child(n + 1) {
+  margin-left: 3%;
+}
+
+.list__title {
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.list__task-list {
+  min-height: 15px;
+}
+
+.task-list__item {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+
+  padding: 10px;
+  padding-right: 30px;
+  margin-bottom: 15px;
+
+  border: 0.5px solid gray;
+  border-radius: 3px;
+
+  cursor: grabbing;
+}
+
+.task-list__item:hover > .delete-task {
+  display: block;
+}
+
+.task-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.delete-task {
+  width: 15px;
+  height: 15px;
+  top: 5px;
+  right: 5px;
+  position: absolute;
+  text-align: center;
+  cursor: pointer;
+  /* background-image: url('../img/delete.png'); */
+  /* background-position: center; */
+}
+
+.delete-task:hover {
+  font-weight: bold;
+}
+
+.dragged {
+  position: absolute;
+  z-index: 999;
+  pointer-events: none;
+  background-color: #ffffff;
+  cursor: grabbing;
+}
+
+#task-description {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.list__add-card,
+.list__input {
+  margin-top: 10px;
+  padding: 5px 0;
+}
+
+.list__add-card:hover {
+  font-weight: bold;
+}
+
+.list__input__add {
+  color: white;
+  background-color: #5ca84d;
+  cursor: pointer;
+  padding: 7px;
+}
+
+.list__input__add:hover {
+  font-weight: bold;
+}
+
+.list__input__cancel {
+  float: right;
+  cursor: pointer;
+}
+
+.list__input__cancel:hover {
+  font-weight: bold;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
