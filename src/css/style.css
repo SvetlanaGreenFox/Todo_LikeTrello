@@ -44,7 +44,7 @@ body {
   min-height: 15px;
 }
 
-.item-task {
+.task-list__item {
   position: relative;
   width: 100%;
   background-color: #ffffff;
@@ -59,11 +59,11 @@ body {
   cursor: grabbing;
 }
 
-.item-task:hover > .delete-task {
+.task-list__item:hover > .delete-task {
   display: block;
 }
 
-.item-task:last-child {
+.task-list__item:last-child {
   margin-bottom: 0;
 }
 
